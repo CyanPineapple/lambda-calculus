@@ -21,18 +21,5 @@ TAIL  = lambda xs: SECOND(SECOND(xs))
 
 PREPEND = lambda li: lambda el: PAIR(False)(PAIR(el)(li))
 
-# Define: APPENDER -- PAIR
-# APPENEDLIST :: PAIR(EMPTY)(APPENDER(HEAD)(TAIL))
-
-APPEND = lambda li: lambda el: PAIR(False)(APPENDER(el)(li))
-
-
-
-if __name__=="__main__":
-    list0 = PAIR(True)(NIL)
-    list1 = PREPEND(list0)(1)
-    list2 = APPEND(list1)(0)
-
-    print(HEAD(list2))
-    print(HEAD(TAIL(list2)))
-    
+APPEND = lambda li: lambda el: PREPEND(li)(el) if IS_EMPTY(li) \
+                                    else PAIR(False)(PAIR(HEAD(li))(APPEND(TAIL(li))(el)))
